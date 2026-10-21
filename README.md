@@ -199,7 +199,7 @@ final insets = FoldableHelper.avoidInsets(
   pill) are read with `.includeInactive`.
 - **Window size:** the window's bounds are observed, so rotation and Split View also trigger an event.
 
-### Android (`android/src/main/kotlin/org/booktime/foldable_device/FoldableDevicePlugin.kt`)
+### Android (`android/src/main/kotlin/com/esmailelmahdy/foldable_device/FoldableDevicePlugin.kt`)
 - **Posture:** from the hinge-angle sensor. 0° = folded, 175° or more = unfolded, anything between = halfOpened.
 - **Fold:** bounds and direction come from `WindowInfoTracker` / `FoldingFeature`. The bounds are converted
   to logical pixels, and `isFoldActive` is `isSeparating`.

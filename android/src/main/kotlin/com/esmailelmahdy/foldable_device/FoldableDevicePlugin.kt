@@ -1,4 +1,4 @@
-package org.booktime.foldable_device
+package com.esmailelmahdy.foldable_device
 
 import android.app.Activity
 import android.hardware.Sensor

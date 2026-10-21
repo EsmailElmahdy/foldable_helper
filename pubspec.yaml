@@ -27,7 +27,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: org.booktime.foldable_device
+        package: com.esmailelmahdy.foldable_device
         pluginClass: FoldableDevicePlugin
       ios:
         pluginClass: FoldableDevicePlugin
