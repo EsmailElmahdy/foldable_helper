@@ -70,12 +70,13 @@ class FoldableHelper {
 
   /// Padding that keeps content laid out in [area] (global/window
   /// coordinates, logical px) clear of reserved regions:
-  ///   - [occlusions] overlapping [area] -> left or right padding, pushing
-  ///     content away from whichever side the region is on:
-  ///       * active ones always — they cover content right now (e.g. the
-  ///         iPhone Duo status pill with the time / Wi-Fi icon, or the camera
-  ///         while it's in use);
-  ///       * inactive ones (camera not in use) only while folded;
+  ///   - [occlusions] overlapping [area] -> vertical padding only, never
+  ///     left/right: a region in the top half of [area] -> top padding so the
+  ///     content starts right after it; in the bottom half (e.g. camera at
+  ///     the bottom after rotating) -> bottom padding so it ends before it:
+  ///       * only ACTIVE ones — they cover content right now: the camera
+  ///         while it's in use (and the iPhone Duo status pill, when the status
+  ///         bar is visible). A camera that isn't in use is ignored;
   ///   - an active vertical fold crossing [area] -> padding that keeps the
   ///     content on the start side (Apple: keep each view on one side);
   ///   - an active horizontal fold crossing [area] -> bottom padding that
@@ -87,17 +88,17 @@ class FoldableHelper {
     bool avoidCamera = true,
     bool avoidFold = true,
   }) {
-    var left = 0.0, right = 0.0, bottom = 0.0;
+    var left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
 
     if (avoidCamera) {
       for (final camera in _occlusions) {
-        if (!camera.isActive && !isFolded) continue;
+        if (!camera.isActive) continue; // camera not in use -> no padding
         final r = camera.bounds;
         if (!r.overlaps(area)) continue;
-        if (r.center.dx < area.center.dx) {
-          left = math.max(left, r.right - area.left);
+        if (r.center.dy < area.center.dy) {
+          top = math.max(top, r.bottom - area.top); // start after the camera
         } else {
-          right = math.max(right, area.right - r.left);
+          bottom = math.max(bottom, area.bottom - r.top); // end before it
         }
       }
     }
@@ -116,7 +117,7 @@ class FoldableHelper {
       }
     }
 
-    return EdgeInsets.only(left: left, right: right, bottom: bottom);
+    return EdgeInsets.only(left: left, top: top, right: right, bottom: bottom);
   }
 
   /// Raw hinge-angle sensor reading in degrees.

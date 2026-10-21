@@ -115,14 +115,20 @@ FoldSafeArea(avoidCamera: false, child: ...) // fold only
 
 | Region | When it's avoided | Padding added |
 |---|---|---|
-| **Active occlusion**: the iPhone Duo status pill (time, Wi-Fi), or the camera while it's in use | Always | Left or right, away from the side it's on |
-| **Inactive occlusion**: the camera when it's off | Only while **folded** | Left or right |
+| **Camera in use** (active occlusion). The iPhone Duo status pill (time, Wi-Fi) is also active while the status bar is visible. | Always | **Vertical only.** Camera at the top: top padding, so content starts right after it. Camera at the bottom (rotated): bottom padding. Never left or right. |
+| **Camera not in use** (inactive occlusion) | Never | None |
 | **Active vertical fold**, open like a book | When it crosses the widget | Keeps content on the start side (right padding for left-to-right text, left for right-to-left) |
 | **Active horizontal fold**, open like a laptop | When it crosses the widget | Bottom padding that keeps content above the fold |
 | **Inactive fold**: fully open | Never | None |
 
 - **`avoidFold`** (default `true`): turns the fold rules on or off.
 - **`avoidCamera`** (default `true`): turns the occlusion rules on or off.
+
+Hide the status bar (`SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky)`) and the status pill's region goes away, so only the camera is padded, and only while it's in use. Rotate so the camera is at the bottom and you get bottom padding only.
+
+**How the edge is chosen:** if the camera is in the top half of the widget, it gets top padding
+of `camera.bottom - widget.top`, so content starts right after the camera. If it's in the bottom
+half, it gets bottom padding of `widget.bottom - camera.top`. It never adds left or right padding.
 
 The padding settles one frame after a change. It re-measures on fold events and window
 resizes, but not while scrolling.

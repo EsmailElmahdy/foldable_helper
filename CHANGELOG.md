@@ -1,3 +1,12 @@
+## 0.1.1
+
+* **`avoidInsets` / `FoldSafeArea`:** camera (occlusion) padding is now **vertical only**. A camera
+  at the top gives top padding, so content starts right after it; a camera at the bottom (rotated)
+  gives bottom padding. Before, the padding was always left or right.
+* Only **active** occlusions are padded. That means the camera only while it's in use, and the
+  status pill only while the status bar is visible. Before, an inactive camera was also padded
+  while folded.
+
 ## 0.1.0
 
 * **Posture, hinge angle, hinge direction and window orientation:** Android (hinge sensor and

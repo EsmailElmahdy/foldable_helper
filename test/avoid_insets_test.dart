@@ -51,19 +51,43 @@ void main() {
     expect(FoldableHelper.avoidInsets(column), const EdgeInsets.only(bottom: 600 - 455.5));
   });
 
-  test('folded: camera pads the side it is on, only where it overlaps', () async {
+  test('camera at the top: content starts after it, only where it overlaps', () async {
     await sendEvent({
       'state': 'folded', 'isFoldableDevice': true,
       'occlusions': [
-        {'left': 850.0, 'top': 90.0, 'right': 900.0, 'bottom': 130.0, 'isActive': false},
+        {'left': 850.0, 'top': 90.0, 'right': 900.0, 'bottom': 130.0, 'isActive': true},
       ],
     });
-    expect(FoldableHelper.avoidInsets(fullWidthRow), const EdgeInsets.only(right: 951 - 850));
+    // Camera (y 90..130) at the top of the row (y 100..160): content starts
+    // after it -> top padding of 30, never left/right.
+    expect(FoldableHelper.avoidInsets(fullWidthRow), const EdgeInsets.only(top: 130 - 100));
     expect(FoldableHelper.avoidInsets(const Rect.fromLTWH(0, 300, 951, 60)), EdgeInsets.zero);
     expect(FoldableHelper.avoidInsets(fullWidthRow, avoidCamera: false), EdgeInsets.zero);
   });
 
-  test('unfolded / half-opened: inactive camera ignored, active status pill avoided', () async {
+  test('rotated: camera in use at the bottom pads only the bottom, by its size', () async {
+    await sendEvent({
+      'state': 'folded', 'isFoldableDevice': true,
+      'occlusions': [
+        // Bottom-center camera on a 400x900 window.
+        {'left': 180.0, 'top': 860.0, 'right': 220.0, 'bottom': 900.0, 'isActive': true},
+      ],
+    });
+    const page = Rect.fromLTWH(0, 100, 400, 800);
+    expect(FoldableHelper.avoidInsets(page), const EdgeInsets.only(bottom: 900 - 860));
+  });
+
+  test('folded: camera not in use adds no padding', () async {
+    await sendEvent({
+      'state': 'folded', 'isFoldableDevice': true,
+      'occlusions': [
+        {'left': 677.3, 'top': 21.0, 'right': 735.3, 'bottom': 58.0, 'isActive': false},
+      ],
+    });
+    expect(FoldableHelper.avoidInsets(const Rect.fromLTWH(0, 0, 951, 100)), EdgeInsets.zero);
+  });
+
+  test('camera not in use is ignored in every posture; active status pill avoided', () async {
     await sendEvent({
       'state': 'halfOpened', 'isFoldableDevice': true,
       'occlusions': [
@@ -72,6 +96,6 @@ void main() {
       ],
     });
     expect(FoldableHelper.avoidInsets(const Rect.fromLTWH(0, 30, 951, 20)),
-        const EdgeInsets.only(right: 951 - 867));
+        const EdgeInsets.only(top: 124 - 30));
   });
 }
