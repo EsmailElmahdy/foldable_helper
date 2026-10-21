@@ -1,6 +1,8 @@
 ## 0.1.1
 
 * First release on pub.dev. MIT license, pub.dev metadata (topics, issue tracker) and podspec details.
+* Android package renamed to `com.esmailelmahdy.foldable_device`.
+* The example's full `pubspec.yaml`, `main.dart` and `home_screen.dart` are now shown on the pub.dev Example tab (`example/README.md`).
 * **`avoidInsets` / `FoldSafeArea`:** camera (occlusion) padding is now **vertical only**. A camera
   at the top gives top padding, so content starts right after it; a camera at the bottom (rotated)
   gives bottom padding. Before, the padding was always left or right.

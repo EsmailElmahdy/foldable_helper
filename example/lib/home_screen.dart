@@ -18,9 +18,9 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Pads the button left/right away from the status pill / camera and
-          // keeps it on one side of an active fold — measured from where it
-          // actually is on screen. Try avoidFold: false / avoidCamera: false.
+          // Pads the button away from the camera (while in use) and keeps it
+          // on one side of an active fold — measured from where it actually
+          // is on screen. Try avoidFold: false / avoidCamera: false.
           FoldSafeArea(
             child: InkWell(
               onTap: () {},
