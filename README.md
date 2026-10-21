@@ -21,7 +21,7 @@ A runnable demo is in [`example/`](example/).
 dependencies:
   foldable_device:
     git:
-      url: https://github.com/esmailelmahdy-debug/foldable_helper.git
+      url: https://github.com/EsmailElmahdy/foldable_helper.git
       # ref: main   # optional: pin a branch, tag or commit
 ```
 
