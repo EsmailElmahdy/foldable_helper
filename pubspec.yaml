@@ -1,8 +1,14 @@
 name: foldable_device
-description: "Foldable posture, hinge angle and hinge orientation for Android foldables and iPhone Duo (iOS 27.1+), over one EventChannel."
+description: "Foldable posture, hinge angle, fold direction and reserved regions (fold, camera) for Android foldables and the iPhone Duo (iOS 27.1+)."
 version: 0.1.1
 repository: https://github.com/EsmailElmahdy/foldable_helper
-publish_to: none
+issue_tracker: https://github.com/EsmailElmahdy/foldable_helper/issues
+topics:
+  - foldable
+  - hinge
+  - dual-screen
+  - iphone
+  - layout
 
 environment:
   sdk: '>=3.5.0 <4.0.0'

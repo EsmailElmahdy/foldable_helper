@@ -17,20 +17,24 @@ A runnable demo is in [`example/`](example/).
 
 ## 1. Install
 
+```sh
+flutter pub add foldable_device
+```
+
+or in `pubspec.yaml`:
+
+```yaml
+dependencies:
+  foldable_device: ^0.1.1
+```
+
+To use the latest code straight from GitHub instead:
+
 ```yaml
 dependencies:
   foldable_device:
     git:
       url: https://github.com/EsmailElmahdy/foldable_helper.git
-      # ref: main   # optional: pin a branch, tag or commit
-```
-
-Or, from a local checkout:
-
-```yaml
-dependencies:
-  foldable_device:
-    path: ../foldable_helper
 ```
 
 Declare it under **`dependencies`**, not `dev_dependencies`. Flutter leaves plugins listed
@@ -237,3 +241,8 @@ flutter test   # test/avoid_insets_test.dart: padding rules for fold, camera and
   icons. The plugin uses the status pill's occlusion region, which covers the time and Wi-Fi icon.
 - **Region updates can lag the hinge.** They arrive through `updateConstraints()`, which may be
   slightly after the hinge event.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+

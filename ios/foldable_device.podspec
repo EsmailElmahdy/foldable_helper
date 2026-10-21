@@ -4,14 +4,15 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'foldable_device'
-  s.version          = '0.0.1'
-  s.summary          = 'Foldable posture / hinge state (iPhone Duo, iOS 27.1+) over the foldable_device EventChannel.'
+  s.version          = '0.1.1'
+  s.summary          = 'Foldable posture, hinge angle and reserved regions for the iPhone Duo (iOS 27.1+).'
   s.description      = <<-DESC
-A new Flutter plugin project.
+iOS side of the foldable_device Flutter plugin: UIHingeInteraction (posture
+and angle) and UIView.reservedRegions (fold and camera) for the iPhone Duo.
                        DESC
-  s.homepage         = 'http://example.com'
-  s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.homepage         = 'https://github.com/EsmailElmahdy/foldable_helper'
+  s.license          = { :type => 'MIT', :file => '../LICENSE' }
+  s.author           = { 'Esmail Elmahdy' => 'esmailelmahdy2002@gmail.com' }
   s.source           = { :path => '.' }
   s.source_files = 'foldable_device/Sources/foldable_device/**/*'
   s.dependency 'Flutter'
