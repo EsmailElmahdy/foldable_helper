@@ -1,7 +1,15 @@
+## 1.0.0
+
+* First stable release on pub.dev.
+* Example app updated: `FoldSafeArea` around the whole body, a hidden status bar, two panes only
+  for a vertical (book) fold, and a live status line.
+* Screenshots from the iPhone Duo simulator in `doc/screenshots/` (also shown in the pub.dev
+  gallery) and a demo video in `doc/demo.mp4` on GitHub.
+* Android package renamed to `com.esmailelmahdy.foldable_device`.
+
 ## 0.1.1
 
-* First release on pub.dev. MIT license, pub.dev metadata (topics, issue tracker) and podspec details.
-* Android package renamed to `com.esmailelmahdy.foldable_device`.
+* MIT license, pub.dev metadata (topics, issue tracker) and podspec details.
 * The example's full `pubspec.yaml`, `main.dart` and `home_screen.dart` are now shown on the pub.dev Example tab (`example/README.md`).
 * **`avoidInsets` / `FoldSafeArea`:** camera (occlusion) padding is now **vertical only**. A camera
   at the top gives top padding, so content starts right after it; a camera at the bottom (rotated)

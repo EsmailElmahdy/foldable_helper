@@ -1,8 +1,21 @@
 name: foldable_device
 description: "Foldable posture, hinge angle, fold direction and reserved regions (fold, camera) for Android foldables and the iPhone Duo (iOS 27.1+)."
-version: 0.1.1
+version: 1.0.0
 repository: https://github.com/EsmailElmahdy/foldable_helper
 issue_tracker: https://github.com/EsmailElmahdy/foldable_helper/issues
+screenshots:
+  - description: Folded - one pane, the content starts below the camera.
+    path: doc/screenshots/1_folded.png
+  - description: Half-opened like a book - two panes, one on each side of the fold.
+    path: doc/screenshots/2_half_opened_book.png
+  - description: Unfolded flat in landscape - vertical hinge, fold inactive.
+    path: doc/screenshots/3_unfolded_landscape.png
+  - description: Unfolded flat in portrait - horizontal hinge, one pane.
+    path: doc/screenshots/4_unfolded_portrait.png
+  - description: Folded and rotated - camera at the bottom, only bottom padding.
+    path: doc/screenshots/5_folded_rotated_camera_bottom.png
+  - description: Folded and rotated - camera on the left, content starts below it.
+    path: doc/screenshots/6_folded_rotated_camera_left.png
 topics:
   - foldable
   - hinge
