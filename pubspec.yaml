@@ -1,6 +1,6 @@
 name: foldable_device
 description: "Foldable posture, hinge angle, fold direction and reserved regions (fold, camera) for Android foldables and the iPhone Duo (iOS 27.1+)."
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/EsmailElmahdy/foldable_helper
 issue_tracker: https://github.com/EsmailElmahdy/foldable_helper/issues
 screenshots:

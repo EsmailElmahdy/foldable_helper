@@ -20,11 +20,11 @@ Running the [example app](example/) on the iPhone Duo simulator. **Demo video:**
 
 | | |
 |---|---|
-| ![Folded](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/main/doc/screenshots/1_folded.png) | ![Half-opened like a book](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/main/doc/screenshots/2_half_opened_book.png) |
+| ![Folded](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/46e3a3e401f7e5abbd36935b4ae2d7569462cb78/doc/screenshots/1_folded.png) | ![Half-opened like a book](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/46e3a3e401f7e5abbd36935b4ae2d7569462cb78/doc/screenshots/2_half_opened_book.png) |
 | **1. Folded:** one yellow pane. The camera is in use (top-right), so `FoldSafeArea` adds top padding and the content starts below it. `fold: null` because there's no fold on the outer screen. | **2. Half-opened like a book (127°):** `fold active: true` and a vertical hinge, so there are two panes, one on each side of the fold. |
-| ![Unfolded in landscape](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/main/doc/screenshots/3_unfolded_landscape.png) | ![Unfolded in portrait](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/main/doc/screenshots/4_unfolded_portrait.png) |
+| ![Unfolded in landscape](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/46e3a3e401f7e5abbd36935b4ae2d7569462cb78/doc/screenshots/3_unfolded_landscape.png) | ![Unfolded in portrait](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/46e3a3e401f7e5abbd36935b4ae2d7569462cb78/doc/screenshots/4_unfolded_portrait.png) |
 | **3. Unfolded flat, landscape (180°):** the fold is reported but **inactive**. It's still a vertical hinge, so the example keeps two panes. | **4. Unfolded flat, portrait:** the hinge is horizontal, so there's one yellow pane. The camera isn't in use, so no padding is added. |
-| ![Folded, rotated, camera at the bottom](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/main/doc/screenshots/5_folded_rotated_camera_bottom.png) | ![Folded, rotated, camera on the left](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/main/doc/screenshots/6_folded_rotated_camera_left.png) |
+| ![Folded, rotated, camera at the bottom](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/46e3a3e401f7e5abbd36935b4ae2d7569462cb78/doc/screenshots/5_folded_rotated_camera_bottom.png) | ![Folded, rotated, camera on the left](https://raw.githubusercontent.com/EsmailElmahdy/foldable_helper/46e3a3e401f7e5abbd36935b4ae2d7569462cb78/doc/screenshots/6_folded_rotated_camera_left.png) |
 | **5. Folded and rotated, camera at the bottom:** only **bottom** padding (the empty strip at the bottom), the size of the camera. Nothing on the sides. | **6. Folded and rotated, camera at the top-left:** top padding only, so the content starts below the camera. |
 
 More details and the full example code are on the [Example tab](https://pub.dev/packages/foldable_device/example).
@@ -41,7 +41,7 @@ or in `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  foldable_device: ^1.0.0
+  foldable_device: ^1.0.1
 ```
 
 To use the latest code straight from GitHub instead:

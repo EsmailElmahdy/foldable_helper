@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'foldable_device'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'Foldable posture, hinge angle and reserved regions for the iPhone Duo (iOS 27.1+).'
   s.description      = <<-DESC
 iOS side of the foldable_device Flutter plugin: UIHingeInteraction (posture

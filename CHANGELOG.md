@@ -1,3 +1,9 @@
+## 1.0.1
+
+* Fix: the README screenshots now load on pub.dev. Image links point to a fixed GitHub commit.
+* The Example tab now shows the full walkthrough (`example/example.md`): screenshots,
+  `pubspec.yaml`, `main.dart` and `home_screen.dart`, instead of only `main.dart`.
+
 ## 1.0.0
 
 * First stable release on pub.dev.
