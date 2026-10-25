@@ -1,3 +1,11 @@
+## 1.0.2
+
+* Duplicate event suppression: a `distinct()` filter on the native event stream drops events where
+  state, angle, orientation, hinge direction and fold-active are all unchanged. Prevents redundant
+  rebuilds on Android (hinge-angle sensor re-sends at ~60 Hz) and on iOS constraint updates.
+* Example: Android Gradle downgraded to 8.9.1 / Gradle 8.11.1 to match the Flutter stable toolchain
+  and fix a `jcenter()` build failure from the `split_screen` dependency.
+
 ## 1.0.1
 
 * Fix: the README screenshots now load on pub.dev. Image links point to a fixed GitHub commit.

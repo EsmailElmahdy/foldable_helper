@@ -64,9 +64,7 @@ class HomeScreen extends StatelessWidget {
             Expanded(
               child: isOpen && FoldableHelper.isVerticalHinge
                   ? TwoPane(
-                      // Vertical fold (book pose) -> panes side by side,
-                      // horizontal fold (laptop pose) -> panes on top of each other.
-                      direction: FoldableHelper.isVerticalHinge ? Axis.horizontal : Axis.vertical,
+                      direction: Axis.horizontal,
                       panePriority: TwoPanePriority.both,
                       startPane: const ColoredBox(color: Colors.blueAccent),
                       endPane: const ColoredBox(color: Colors.red),

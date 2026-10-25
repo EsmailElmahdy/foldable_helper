@@ -199,7 +199,12 @@ class FoldableHelper {
   }
 
   static void initialize() {
-    _subscription ??= _eventStream.listen(
+    _subscription ??= _eventStream.distinct((a, b) =>
+        a['state'] == b['state'] &&
+        a['hingeAngle'] == b['hingeAngle'] &&
+        a['isLandscape'] == b['isLandscape'] &&
+        a['isVerticalHinge'] == b['isVerticalHinge'] &&
+        a['isFoldActive'] == b['isFoldActive']).listen(
           (event) {
         _currentState =
             _parseState(event['state']);

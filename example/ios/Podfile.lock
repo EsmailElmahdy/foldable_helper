@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - foldable_device (1.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - foldable_device (from `.symlinks/plugins/foldable_device/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  foldable_device:
+    :path: ".symlinks/plugins/foldable_device/ios"
+
+SPEC CHECKSUMS:
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  foldable_device: 626b9f91e6edbecff50cccf1fc0f37a5ec7b0172
+
+PODFILE CHECKSUM: 533b2538ed56a520057c1cc11353a4e5d8689521
+
+COCOAPODS: 1.16.2
