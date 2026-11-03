@@ -25,6 +25,9 @@ public class FoldableDevicePlugin: NSObject, FlutterPlugin, FlutterStreamHandler
   private var hinge: AnyObject?
   private var hingeInteraction: UIInteraction?
   private var regionObserver: ReservedRegionObserverView?
+  /// Cached hinge orientation — survives emits where the division region
+  /// hasn't loaded yet (first hinge callback before constraints update).
+  private var lastVerticalHinge: Bool = false
 
   public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
     eventSink = events
@@ -96,7 +99,7 @@ public class FoldableDevicePlugin: NSObject, FlutterPlugin, FlutterStreamHandler
     var event: [String: Any] = [
       "state": "notFoldable",
       "isFoldableDevice": false,
-      "isVerticalHinge": false,
+      "isVerticalHinge": lastVerticalHinge,
       "isLandscape": bounds.width > bounds.height,
     ]
 
@@ -114,9 +117,12 @@ public class FoldableDevicePlugin: NSObject, FlutterPlugin, FlutterStreamHandler
         event["hingeTop"] = fold.frame.minY
         event["hingeRight"] = fold.frame.maxX
         event["hingeBottom"] = fold.frame.maxY
-        event["isVerticalHinge"] = fold.frame.height > fold.frame.width
+        lastVerticalHinge = fold.frame.height > fold.frame.width
         event["isFoldActive"] = fold.isActive
       }
+      // Always emit the orientation — use the cached value when the division
+      // region hasn't loaded yet, matching Kotlin's FoldingFeature.orientation.
+      event["isVerticalHinge"] = lastVerticalHinge
       event["occlusions"] = regionObserver?.occlusions.map { region in
         [
           "left": region.frame.minX, "top": region.frame.minY,

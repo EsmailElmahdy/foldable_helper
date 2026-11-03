@@ -1,3 +1,10 @@
+## 1.0.3
+
+* **FIX:** iOS `isVerticalHinge` now caches the last known orientation from the division region.
+  Previously, emits before the first `updateConstraints()` run (or when the division region was
+  temporarily unavailable) defaulted to `false`. Now it persists the correct value across all
+  emits, matching Android's `FoldingFeature.Orientation` reliability.
+
 ## 1.0.2
 
 * Duplicate event suppression: a `distinct()` filter on the native event stream drops events where

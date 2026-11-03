@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
 
     // Open (half-opened or flat) -> two panes; folded / not foldable -> one.
     final isOpen = FoldableHelper.isUnfolded || FoldableHelper.isHalfOpened;
+    debugPrint('isVerticalHinge ${FoldableHelper.isVerticalHinge}');
 
     return Scaffold(
       appBar: AppBar(
