@@ -119,9 +119,11 @@ public class FoldableDevicePlugin: NSObject, FlutterPlugin, FlutterStreamHandler
         event["hingeBottom"] = fold.frame.maxY
         lastVerticalHinge = fold.frame.height > fold.frame.width
         event["isFoldActive"] = fold.isActive
+      } else {
+        // No division region yet — derive from window shape instead of
+        // using a stale cached value.
+        lastVerticalHinge = bounds.width > bounds.height
       }
-      // Always emit the orientation — use the cached value when the division
-      // region hasn't loaded yet, matching Kotlin's FoldingFeature.orientation.
       event["isVerticalHinge"] = lastVerticalHinge
       event["occlusions"] = regionObserver?.occlusions.map { region in
         [
