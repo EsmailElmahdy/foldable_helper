@@ -1,3 +1,10 @@
+## 1.0.4
+
+* **FIX:** `isVerticalHinge` no longer returns a stale cached value when the division region
+  disappears (e.g. fully unfolded). Now falls back to the window aspect ratio
+  (`width > height` → vertical hinge) instead of keeping the last orientation from a previous
+  posture.
+
 ## 1.0.3
 
 * **FIX:** iOS `isVerticalHinge` now caches the last known orientation from the division region.
