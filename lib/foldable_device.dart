@@ -92,7 +92,6 @@ class FoldableHelper {
 
     if (avoidCamera) {
       for (final camera in _occlusions) {
-        if (!camera.isActive) continue; // camera not in use -> no padding
         final r = camera.bounds;
         if (!r.overlaps(area)) continue;
         if (r.center.dy < area.center.dy) {
