@@ -1,3 +1,12 @@
+## 1.0.5
+
+* **FIX:** Occlusion coordinates now converted from window to Flutter view coordinate space
+  via `UIView.convert(_:to:)`, fixing wrong padding direction when the device is rotated.
+* **FIX:** Occlusions now available on first launch — added deferred `layoutIfNeeded()` + re-emit
+  so `updateConstraints()` runs before Dart reads the first event.
+* **FIX:** `avoidInsets` no longer skips inactive occlusions — the camera area is always avoided
+  even when the camera is not in use.
+
 ## 1.0.4
 
 * **FIX:** `isVerticalHinge` no longer returns a stale cached value when the division region

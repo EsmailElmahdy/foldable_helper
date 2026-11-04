@@ -84,6 +84,13 @@ public class FoldableDevicePlugin: NSObject, FlutterPlugin, FlutterStreamHandler
       window.insertSubview(observer, at: 0)
       observer.setNeedsUpdateConstraints()
       regionObserver = observer
+      // The first updateConstraints() runs on the next layout pass, which
+      // happens after the initial emit. Re-emit once the pass is done so
+      // Dart gets the regions without needing a rotation first.
+      DispatchQueue.main.async { [weak self] in
+        observer.layoutIfNeeded()
+        self?.emit()
+      }
     }
 
     // .initial sends the current state right away, like the Android side's
@@ -95,7 +102,11 @@ public class FoldableDevicePlugin: NSObject, FlutterPlugin, FlutterStreamHandler
 
   private func emit() {
     guard let window else { return }
-    let bounds = window.bounds
+    // Flutter's coordinate system follows the root view controller's view,
+    // which rotates with the device. The observer sits in the window, which
+    // does NOT rotate. Convert region frames from window coords → Flutter coords.
+    let flutterView = window.rootViewController?.view
+    let bounds = flutterView?.bounds ?? window.bounds
     var event: [String: Any] = [
       "state": "notFoldable",
       "isFoldableDevice": false,
@@ -103,32 +114,37 @@ public class FoldableDevicePlugin: NSObject, FlutterPlugin, FlutterStreamHandler
       "isLandscape": bounds.width > bounds.height,
     ]
 
+    #if DEBUG
+    let orientation = window.windowScene?.interfaceOrientation ?? .unknown
+    NSLog("%@", "[Foldable] emit: windowBounds=\(window.bounds) flutterBounds=\(bounds) orientation=\(orientation.rawValue) observerFrame=\(regionObserver?.frame ?? .zero)")
+    #endif
+
     if #available(iOS 27.1, *), let hinge = hinge as? UIHinge {
       let degrees = hinge.angle * 180 / .pi
       event["isFoldableDevice"] = true
       event["hingeAngle"] = degrees
       event["state"] = Self.state(for: hinge.status, degrees: degrees)
 
-      // Read in the observer's updateConstraints() (so UIKit tracks them).
-      // Its frame matches the window, so these are window coordinates in
-      // points (= Flutter logical pixels), unlike Android's physical pixels.
       if let fold = regionObserver?.divisions.first {
-        event["hingeLeft"] = fold.frame.minX
-        event["hingeTop"] = fold.frame.minY
-        event["hingeRight"] = fold.frame.maxX
-        event["hingeBottom"] = fold.frame.maxY
-        lastVerticalHinge = fold.frame.height > fold.frame.width
+        let r = Self.convert(fold.frame, from: regionObserver, to: flutterView, fallbackBounds: bounds)
+        event["hingeLeft"] = r.minX
+        event["hingeTop"] = r.minY
+        event["hingeRight"] = r.maxX
+        event["hingeBottom"] = r.maxY
+        lastVerticalHinge = r.height > r.width
         event["isFoldActive"] = fold.isActive
       } else {
-        // No division region yet — derive from window shape instead of
-        // using a stale cached value.
         lastVerticalHinge = bounds.width > bounds.height
       }
       event["isVerticalHinge"] = lastVerticalHinge
       event["occlusions"] = regionObserver?.occlusions.map { region in
-        [
-          "left": region.frame.minX, "top": region.frame.minY,
-          "right": region.frame.maxX, "bottom": region.frame.maxY,
+        let r = Self.convert(region.frame, from: self.regionObserver, to: flutterView, fallbackBounds: bounds)
+        #if DEBUG
+        NSLog("%@", "[Foldable] occlusion raw=\(region.frame) converted=\(r)")
+        #endif
+        return [
+          "left": r.minX, "top": r.minY,
+          "right": r.maxX, "bottom": r.maxY,
           "isActive": region.isActive,
         ] as [String: Any]
       } ?? []
@@ -138,6 +154,19 @@ public class FoldableDevicePlugin: NSObject, FlutterPlugin, FlutterStreamHandler
     NSLog("%@", "[Foldable] emit: \(event)")
     #endif
     eventSink?(event)
+  }
+
+  /// Convert a rect from the observer (window) coordinate space to the
+  /// Flutter view controller's view coordinate space.
+  private static func convert(_ rect: CGRect, from source: UIView?, to target: UIView?, fallbackBounds: CGRect) -> CGRect {
+    guard let source, let target else { return rect }
+    let topLeft = source.convert(rect.origin, to: target)
+    let bottomRight = source.convert(CGPoint(x: rect.maxX, y: rect.maxY), to: target)
+    let minX = min(topLeft.x, bottomRight.x)
+    let minY = min(topLeft.y, bottomRight.y)
+    let maxX = max(topLeft.x, bottomRight.x)
+    let maxY = max(topLeft.y, bottomRight.y)
+    return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
   }
 
   /// Same values as the Android getStateFromAngle; the angle thresholds are

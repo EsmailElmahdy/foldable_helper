@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       // padding when the camera is at the top, bottom padding after rotating
       // it to the bottom). avoidFold: false lets the panes span the fold.
       body: FoldSafeArea(
-        avoidCamera: true,
+        avoidCamera: FoldableHelper.isFolded ? true : false,
         avoidFold: false,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

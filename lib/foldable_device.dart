@@ -92,14 +92,22 @@ class FoldableHelper {
 
     if (avoidCamera) {
       for (final camera in _occlusions) {
+        if (!camera.isActive) continue;
+
         final r = camera.bounds;
         if (!r.overlaps(area)) continue;
         if (r.center.dy < area.center.dy) {
-          top = math.max(top, r.bottom - area.top); // start after the camera
+          top = math.max(top, r.bottom - area.top);
         } else {
-          bottom = math.max(bottom, area.bottom - r.top); // end before it
+          bottom = math.max(bottom, area.bottom - r.top);
         }
       }
+      debugPrint('''
+CAMERA DEBUG:
+Area: $area
+Occlusions: $_occlusions
+Insets: $top, $bottom
+''');
     }
 
     final fold = _fold;
